@@ -5,11 +5,11 @@ func insertion_sort(hand []int) {
 	for i := 1; i < len(hand); i++ {
 		// Loop invariant: sub-hand [0..i-1] is already sorted before each iteration.
 		key := hand[i]
-		j := i - 1
-		for j >= 0 && hand[j] > key {
-			hand[j+1] = hand[j]
-			j -= 1
+		k := i - 1
+		for k >= 0 && hand[k] > key {
+			hand[k+1] = hand[k]
+			k -= 1
 		}
-		hand[j+1] = key
+		hand[k+1] = key
 	}
 }
