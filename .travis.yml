@@ -3,7 +3,6 @@ dist: bionic
 language: C++
 compiler: gcc
 script:
-    - mkdir build/
-    - cd build/
-    - cmake ..
-    - make
+    - mkdir build/ && cd build/
+    - cmake .. && make
+    - ./tests
