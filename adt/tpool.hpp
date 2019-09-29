@@ -1,3 +1,5 @@
+#pragma once
+
 #include <mutex>
 #include <queue>
 #include <vector>
@@ -14,7 +16,7 @@ public:
 
     using task_t = std::function<void()>;
 
-    explicit thread_pool(const std::size_t size) noexcept;
+    explicit thread_pool(const std::size_t size);
     ~thread_pool();
 
     thread_pool(const thread_pool& pool) = delete;

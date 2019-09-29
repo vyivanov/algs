@@ -4,10 +4,14 @@
 #include <thread>
 #include <cstddef>
 #include <optional>
+#include <stdexcept>
 
 namespace alg::adt {
 
-thread_pool::thread_pool(const std::size_t size) noexcept : m_run(true) {
+thread_pool::thread_pool(const std::size_t size) : m_run(true) {
+    if (0 == size) {
+        throw std::invalid_argument("fail to create zero-sized thread pool");
+    }
     for (std::size_t i = 0; i < size; ++i) {
         m_pool.emplace_back(
             [this]() -> void {
@@ -49,9 +53,9 @@ bool thread_pool::push(task_t&& task) noexcept {
     if (!task) {
         return false;
     }
-    [this, &task]() -> void {
+    [this, t = std::move(task)]() -> void {
         std::lock_guard<std::mutex> lock {m_mtx};
-        m_tasks.push(task);
+        m_tasks.push(std::move(t));
     }();
     m_cv.notify_one();
     return true;

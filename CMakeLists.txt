@@ -13,4 +13,5 @@ set(TST_SOURCES main.cpp
 add_library(algs SHARED ${ALG_SOURCES})
 add_executable(tests ${TST_SOURCES})
 
+target_include_directories(tests PRIVATE ./)
 target_link_libraries(tests algs ${CMAKE_THREAD_LIBS_INIT})
