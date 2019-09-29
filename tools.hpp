@@ -4,20 +4,27 @@
 #include <iostream>
 #include <exception>
 
-#define STRONG_ASSERT(expression, message)  \
-    do {                                    \
-        if (false == (expression)) {        \
-            std::stringstream msg;          \
-            msg << "tests:"                 \
-                << __FILE__                 \
-                << __LINE__                 \
-                << __PRETTY_FUNCTION__      \
-                << #expression              \
-                << message;                 \
-            std::clog << msg.str();         \
-            std::terminate();               \
-        }                                   \
-    }                                       \
+#define STRONG_ASSERT(expression, message)          \
+    do {                                            \
+        if (false == (expression)) {                \
+            std::stringstream msg;                  \
+            msg << "\ntests:\x20"                   \
+                << __FILE__                         \
+                << ":"                              \
+                << __LINE__                         \
+                << ":\x20"                          \
+                << __PRETTY_FUNCTION__              \
+                << ":\x20"                          \
+                << "Assertion\x20'"                 \
+                << #expression                      \
+                << "'\x20"                          \
+                << "failed.\x20Message:\x20'"       \
+                << message                          \
+                << "'.";                            \
+            std::clog << msg.str() << "\n";         \
+            std::terminate();                       \
+        }                                           \
+    }                                               \
     while (false)
 
 #define TEST() \
