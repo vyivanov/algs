@@ -1,5 +1,5 @@
-#include <iostream>
+#include "adt/test_tpool.hpp"
 
 int main() {
-    std::cout << "ok" << '\n';
+    alg::adt::test::tpool();
 }
