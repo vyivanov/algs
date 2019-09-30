@@ -1,3 +1,7 @@
 #pragma once
 
-namespace alg::adt::test { void tpool(); }
+namespace alg::adt::test {
+
+void tpool();
+
+}

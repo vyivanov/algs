@@ -1,11 +1,15 @@
 #include "tools.hpp"
 #include "tpool.hpp"
 
+#include <memory>
+#include <stdexcept>
+#include <functional>
+
 namespace {
 
 void allocate_on_stack()
 {
-    TEST();
+    TEST_CASE();
 
     const alg::adt::thread_pool pool_1 {1};
     const alg::adt::thread_pool pool_5 {5};
@@ -13,7 +17,7 @@ void allocate_on_stack()
 
 void allocate_on_heap()
 {
-    TEST();
+    TEST_CASE();
 
     const auto pool_1 = std::make_unique<alg::adt::thread_pool>(1);
     const auto pool_5 = std::make_unique<alg::adt::thread_pool>(5);
@@ -21,7 +25,7 @@ void allocate_on_heap()
 
 void invalid_args()
 {
-    TEST();
+    TEST_CASE();
 
     try {
         const alg::adt::thread_pool pool_0 {0};
@@ -34,13 +38,14 @@ void invalid_args()
     }
 
     alg::adt::thread_pool pool {10};
+
     STRONG_ASSERT(pool.push({}) == false, "");
     STRONG_ASSERT(pool.push(nullptr) == false, "");
 }
 
 void execute()
 {
-    TEST();
+    TEST_CASE();
 
     int x_1 = 0;
     int x_2 = 0;
@@ -62,6 +67,8 @@ namespace alg::adt::test {
 
 void tpool()
 {
+    TEST_SUITE();
+
     ::allocate_on_stack();
     ::allocate_on_heap();
     ::invalid_args();

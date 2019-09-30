@@ -1,8 +1,12 @@
 #pragma once
 
+#include <ctime>
+#include <cmath>
 #include <sstream>
+#include <cstdlib>
 #include <iostream>
 #include <exception>
+#include <string_view>
 
 #define STRONG_ASSERT(expression, message)          \
     do {                                            \
@@ -27,28 +31,54 @@
     }                                               \
     while (false)
 
-#define TEST() \
-    alg::test entry(__PRETTY_FUNCTION__)
+#define TEST_SUITE() \
+    alg::test_suite __ts__(__PRETTY_FUNCTION__)
+
+#define TEST_CASE() \
+    alg::test_case  __tc__(__PRETTY_FUNCTION__)
 
 namespace alg {
 
-class test final {
+class test_suite final {
 public:
-    explicit test(const std::string func) {
+    explicit test_suite(const std::string_view func) noexcept {
         std::clog
-            << ++test::count
-            << '\x20' << "->"
+            << ++test_suite::count
             << '\x20' << func
-        ;
-    }
-    ~test() {
-        std::clog
-            << '\x20' << "->"
-            << '\n'
-        ;
+            << '\n';
     }
 private:
     static inline int count = 0;
 };
+
+class test_case final {
+public:
+    explicit test_case(const std::string_view func) noexcept {
+        std::clog
+            << "\x20\x20"
+            << ++test_case::count
+            << '\x20' << "->"
+            << '\x20' << func;
+    }
+    ~test_case() {
+        std::clog
+            << '\x20' << "->"
+            << '\n';
+    }
+private:
+    static inline int count = 0;
+};
+
+inline int random(const int min, const int max)
+{
+    std::srand(std::time(0));
+
+    const float rand = std::rand();
+    const float frac = rand / RAND_MAX;
+
+    const int inc = std::round(frac * (max - min));
+
+    return min + inc;
+}
 
 }
