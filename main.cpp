@@ -1,4 +1,5 @@
 #include "adt/test_tpool.hpp"
+#include "numeric/test_randomize.hpp"
 
 #include <iostream>
 
@@ -14,7 +15,9 @@ public:
 
 int main()
 {
-    ::log suites;
+    log suites;
 
+    alg::randomize::test::random();
+    alg::randomize::test::array();
     alg::adt::test::tpool();
 }

@@ -69,10 +69,10 @@ void tpool()
 {
     TEST_SUITE();
 
-    ::allocate_on_stack();
-    ::allocate_on_heap();
-    ::invalid_args();
-    ::execute();
+    allocate_on_stack();
+    allocate_on_heap();
+    invalid_args();
+    execute();
 }
 
 }
