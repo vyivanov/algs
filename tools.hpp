@@ -1,9 +1,6 @@
 #pragma once
 
-#include <ctime>
-#include <cmath>
 #include <sstream>
-#include <cstdlib>
 #include <iostream>
 #include <exception>
 #include <string_view>
@@ -68,17 +65,5 @@ public:
 private:
     static inline int count = 0;
 };
-
-inline int random(const int min, const int max)
-{
-    std::srand(std::time(0));
-
-    const float rand = std::rand();
-    const float frac = rand / RAND_MAX;
-
-    const int inc = std::round(frac * (max - min));
-
-    return min + inc;
-}
 
 }
